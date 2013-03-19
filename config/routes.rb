@@ -1,5 +1,7 @@
 Soapbox::Application.routes.draw do
-  resources :shouts
+  resources :shouts do
+    resources :comments
+  end
 
 
   get "home/index"
