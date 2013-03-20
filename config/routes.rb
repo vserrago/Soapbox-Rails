@@ -1,8 +1,18 @@
 Soapbox::Application.routes.draw do
+  devise_for :users
+
   resources :shouts do
     resources :comments
   end
 
+  namespace :api do
+    namespace :v1 do
+      devise_scope :user do
+        post 'sessions' => 'sessions#create', :as => 'login'
+        delete 'sessions' => 'sessions#destroy', :as => 'logout'
+      end
+    end
+  end
 
   get "home/index"
 
