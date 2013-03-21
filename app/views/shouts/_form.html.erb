@@ -1,4 +1,5 @@
-<%= form_for(@shout) do |f| %>
+<% @shout.tags.build %>
+<%= form_for(@shout) do |shout_form| %>
   <% if @shout.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@shout.errors.count, "error") %> prohibited this shout from being saved:</h2>
@@ -12,18 +13,21 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= shout_form.label :name %><br />
+    <%= shout_form.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
+    <%= shout_form.label :title %><br />
+    <%= shout_form.text_field :title %>
   </div>
   <div class="field">
-    <%= f.label :message %><br />
-    <%= f.text_area :message %>
+    <%= shout_form.label :message %><br />
+    <%= shout_form.text_area :message %>
   </div>
+  <h2>Tags</h2>
+  <%= render :partial => 'tags/form',
+             :locals => { :form => shout_form} %>
   <div class="actions">
-    <%= f.submit %>
+    <%= shout_form.submit %>
   </div>
 <% end %>
