@@ -1,4 +1,7 @@
 class ShoutsController < ApplicationController
+  skip_before_filter :verify_authenticity_token
+  before_filter :authenticate_user!, :only => [:create, :destroy]
+
   # GET /shouts
   # GET /shouts.json
   def index
