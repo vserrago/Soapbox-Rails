@@ -5,7 +5,12 @@ class ShoutsController < ApplicationController
   # GET /shouts
   # GET /shouts.json
   def index
-    @shouts = Shout.all
+    @shouts = nil
+    if params[:tag] == nil
+      @shouts = Shout.all
+    else
+      @shouts = Shout.where("tag = ?", params[:tag])
+    end
 
     respond_to do |format|
       format.html # index.html.erb
