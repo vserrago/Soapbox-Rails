@@ -65,6 +65,8 @@ class ShoutsController < ApplicationController
   # PUT /shouts/1.json
   def update
     @shout = Shout.find(params[:id])
+    @shout.rating += 1
+    @shout.save
 
     respond_to do |format|
       if @shout.update_attributes(params[:shout])
