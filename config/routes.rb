@@ -17,6 +17,8 @@ Soapbox::Application.routes.draw do
 
   get "home/index"
 
+  resources :users, only: [:show, :edit, :update]
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
