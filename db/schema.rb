@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130403202339) do
+ActiveRecord::Schema.define(:version => 20130404213652) do
 
   create_table "comments", :force => true do |t|
     t.string   "commenter"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(:version => 20130403202339) do
     t.string   "name",                   :default => "", :null => false
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.string   "tag"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
