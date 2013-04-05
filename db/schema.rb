@@ -33,15 +33,6 @@ ActiveRecord::Schema.define(:version => 20130404213652) do
     t.integer  "rating"
   end
 
-  create_table "tags", :force => true do |t|
-    t.string   "name"
-    t.integer  "shout_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "tags", ["shout_id"], :name => "index_tags_on_shout_id"
-
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
