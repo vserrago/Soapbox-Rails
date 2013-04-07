@@ -12,10 +12,15 @@ class ShoutsController < ApplicationController
     end
 
     if params[:date] != nil
-      @date = params[:date]
-      @date = @date.sub("T", " ")
-      @date = @date.sub("Z", "")
-      @shouts = Shout.where("created_at > ?", @date)
+      date = params[:date]
+      date = date.sub("T", " ")
+      date = date.sub("Z", "")
+      @shouts = Shout.where("created_at > ?", date)
+    end
+
+    # return information about which shouts user has rated
+    if params[:userid] != nil
+      @shouts = Rating.where("user_id = ?", params[:userid])
     end
 
     respond_to do |format|
@@ -71,14 +76,24 @@ class ShoutsController < ApplicationController
   # PUT /shouts/1.json
   def update
     @shout = Shout.find(params[:id])
-    @vote = params[:vote]
+    vote = 0
 
-    if @vote == "add"
+    if params[:vote] == "add"
+      vote = 1
       @shout.rating += 1
       @shout.save
-    elsif @vote == "sub"
+    elsif params[:vote] == "sub"
+      vote = -1
       @shout.rating -= 1
       @shout.save
+    end
+
+    record = Rating.where("user_id = ? AND shout_id = ?", params[:userid], params[:id]).first
+    if record == nil
+      Rating.create :shout_id => params[:id], :user_id => params[:userid], :vote => vote
+    else
+      record.vote = vote
+      record.save
     end
 
     respond_to do |format|
