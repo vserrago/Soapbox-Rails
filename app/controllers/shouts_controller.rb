@@ -5,11 +5,17 @@ class ShoutsController < ApplicationController
   # GET /shouts
   # GET /shouts.json
   def index
-    @shouts = nil
-    if params[:tag] == nil
-      @shouts = Shout.all
-    else
+    @shouts = Shout.all
+
+    if params[:tag] != nil
       @shouts = Shout.where("tag = ?", params[:tag])
+    end
+
+    if params[:date] != nil
+      @date = params[:date]
+      @date = @date.sub("T", " ")
+      @date = @date.sub("Z", "")
+      @shouts = Shout.where("created_at > ?", @date)
     end
 
     respond_to do |format|
