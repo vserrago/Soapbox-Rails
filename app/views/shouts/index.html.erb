@@ -10,7 +10,7 @@
 <% @shouts.each do |shout| %>
   <tr>
     <td><%= shout.name %></td>
-    <td><%= link_to shout.title, shout %></td>
+    <td><%= link_to shout.message[0..5] << '...', shout %></td>
     <td><%= link_to 'Destroy', shout, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
