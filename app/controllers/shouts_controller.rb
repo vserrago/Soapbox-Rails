@@ -92,7 +92,11 @@ class ShoutsController < ApplicationController
     if record == nil
       Rating.create :shout_id => params[:id], :user_id => params[:userid], :vote => vote
     else
-      record.vote = vote
+      if (record.vote == -1 && params[:vote] == "add") || (record.vote == 1 && params[:vote] == "sub")
+        record.vote = 0
+      else
+        record.vote = vote
+      end
       record.save
     end
 
