@@ -27,6 +27,7 @@ class UsersController < ApplicationController
       end
 
       respond_to do |format|
+        format.html { render json: @user }
         format.json { render json: @user }
       end
     end
