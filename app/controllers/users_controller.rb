@@ -14,17 +14,21 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
-    @new_tag = params[:tag]
-    @new_name = params[:name]
 
-    if @new_tag != nil
-      @user.tag = @new_tag
+    if params[:tag] != nil
+      @user.tag = params[:tag]
       @user.save
     end
 
-    if @new_name != nil
-      @user.name = @new_name
-      @user.save
+    if params[:name] != nil
+      if User.where("name = ?", params[:name]).first == nil
+        @user.name = params[:name]
+        @user.save
+      end
+
+      respond_to do |format|
+        format.json { render json: @user }
+      end
     end
   end
 end
